@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="KleinOS Venture Diligence: a fast, evidence-oriented AI diligence engine for venture investors." />
+  <title>KleinOS Venture Diligence</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="mark">K</span><div><strong>KleinOS</strong><small>Venture Diligence</small></div></div>
+    <button id="loadSample" class="ghost">Load sample</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">AI DILIGENCE FOR INVESTORS</p>
+      <h1>Turn an AI startup into an IC-ready risk view in minutes.</h1>
+      <p class="sub">A transparent scoring engine for governance, data, technical and commercial AI risk. No API key. No black-box return prediction.</p>
+      <div class="hero-chips"><span>Evidence-oriented</span><span>Explainable scoring</span><span>IC memo export</span></div>
+    </section>
+
+    <section class="workspace">
+      <form id="diligenceForm" class="panel form-panel">
+        <div class="section-head"><div><p class="eyebrow">ASSESSMENT</p><h2>Company inputs</h2></div><span class="step">01</span></div>
+
+        <label>Company name<input id="companyName" name="companyName" placeholder="e.g. Northstar AI" /></label>
+
+        <div class="grid2">
+          <label>Is AI core to the product?<select name="coreAI"><option value="yes">Yes</option><option value="no">No</option></select></label>
+          <label>Does AI influence high-impact decisions?<select name="highImpact"><option value="no">No</option><option value="yes">Yes</option></select></label>
+          <label>Targeting a regulated sector?<select name="regulated"><option value="no">No</option><option value="yes">Yes</option></select></label>
+          <label>AI inventory / model register<select name="aiInventory"><option value="100">Complete</option><option value="50" selected>Partial</option><option value="0">None</option></select></label>
+        </div>
+
+        <p class="group-title">Governance</p>
+        <div class="grid2">
+          <label>Human oversight<select name="humanOversight"><option value="100">Enforced</option><option value="50" selected>Partial</option><option value="0">None</option></select></label>
+          <label>Production monitoring<select name="monitoring"><option value="100">Continuous</option><option value="50" selected>Basic</option><option value="0">None</option></select></label>
+          <label>AI incident response<select name="incidentResponse"><option value="100">Tested process</option><option value="50" selected>Documented only</option><option value="0">None</option></select></label>
+          <label>Model documentation<select name="documentation"><option value="100">Complete</option><option value="50" selected>Partial</option><option value="0">Minimal</option></select></label>
+        </div>
+
+        <p class="group-title">Data</p>
+        <div class="grid2">
+          <label>Training / usage data rights<select name="dataRights"><option value="100">Verified</option><option value="50" selected>Mostly verified</option><option value="0">Unclear</option></select></label>
+          <label>Privacy / risk review<select name="privacyReview"><option value="100">Formal</option><option value="50" selected>Informal</option><option value="0">None</option></select></label>
+          <label>Data lineage<select name="dataLineage"><option value="100">Traceable</option><option value="50" selected>Partial</option><option value="0">Unknown</option></select></label>
+          <label>Retention / deletion controls<select name="retentionControls"><option value="100">Automated</option><option value="50" selected>Manual</option><option value="0">Undefined</option></select></label>
+        </div>
+
+        <p class="group-title">Technical</p>
+        <div class="grid2">
+          <label>Model evaluation<select name="evaluation"><option value="100">Release-gated</option><option value="50" selected>Ad hoc</option><option value="0">None</option></select></label>
+          <label>AI-specific security testing<select name="securityTesting"><option value="100">Regular adversarial tests</option><option value="50" selected>Basic</option><option value="0">None</option></select></label>
+          <label>Fallback / rollback plan<select name="fallbackPlan"><option value="100">Tested</option><option value="50" selected>Documented</option><option value="0">None</option></select></label>
+          <label>Reproducibility / versioning<select name="reproducibility"><option value="100">Strong</option><option value="50" selected>Partial</option><option value="0">Weak</option></select></label>
+        </div>
+
+        <p class="group-title">Commercial</p>
+        <div class="grid2">
+          <label>Evidence of AI moat<select name="moatEvidence"><option value="100">Strong</option><option value="50" selected>Emerging</option><option value="0">Weak</option></select></label>
+          <label>AI unit economics evidence<select name="unitEconomics"><option value="100">Measured</option><option value="50" selected>Estimated</option><option value="0">Unknown</option></select></label>
+          <label>Vendor resilience<select name="vendorResilience"><option value="100">Portable / diversified</option><option value="50" selected>Some alternatives</option><option value="0">Single dependency</option></select></label>
+          <label>Customer proof<select name="customerProof"><option value="100">Paid + retained</option><option value="50" selected>Pilots</option><option value="0">Pre-customer</option></select></label>
+        </div>
+
+        <button class="primary" type="submit">Run diligence</button>
+      </form>
+
+      <aside class="panel output-panel" id="outputPanel">
+        <div class="section-head"><div><p class="eyebrow">INVESTMENT VIEW</p><h2>IC snapshot</h2></div><span class="step">02</span></div>
+        <div class="score-wrap"><div class="score-ring" id="scoreRing"><span id="score">—</span><small>/100</small></div><div><p class="muted">Residual AI risk</p><h3 id="tier">Not scored</h3><p id="decision" class="decision">Complete the assessment.</p></div></div>
+        <div id="categoryBars" class="bars"></div>
+        <div class="output-section"><h4>Top risks</h4><div id="flags" class="flags"><p class="muted">No assessment yet.</p></div></div>
+        <div class="output-section"><h4>Strengths</h4><div id="strengths" class="strengths"><p class="muted">No assessment yet.</p></div></div>
+        <div class="actions"><button id="copyMemo" class="ghost" type="button" disabled>Copy IC memo</button><button id="downloadJson" class="ghost" type="button" disabled>Download JSON</button></div>
+        <p class="fine">Structured diligence aid only. Validate against source evidence and specialist advice.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer><span>Klein Consulting</span><span>KleinOS Venture Diligence · MVP</span></footer>
+  <script src="model.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
